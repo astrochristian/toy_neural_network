@@ -14,11 +14,13 @@ images, labels = mndata.load_testing()
 for i in range(10):
     input_array = np.asarray(images[i])
 
+    print(mndata.display(images[i]), "\n")
+
+    input_array = input_array / np.max(input_array)
+
     result = neural_network.run_network(
         input_array, neural_network.sigmoid())[-1]
     total = np.sum(result)
-
-    print(mndata.display(images[i]), "\n")
 
     for j in range(10):
         norm_val = result[j]/total

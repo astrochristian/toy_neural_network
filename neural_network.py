@@ -29,12 +29,13 @@ class relu:
         pass
 
     def f(self, x):
-        x[x <= 0] = 0
-        return x
+        g = np.zeros_like(x)
+        g[x > 0] = x[x > 0]
+        return g
 
     def derivative(self, x):
         g = np.zeros_like(x)
-        g[x > 0] = 1
+        g[x > 0] = 1.0
         return g
 
 
@@ -125,7 +126,7 @@ def train_network(input_matrix, truth_matrix, activation, learning_rate, archite
         architecture[:-1] * architecture[1:]) + np.sum(architecture[1:])
 
     weights = np.random.uniform(
-        low=-1.0, high=1.0, size=N_weights_and_biases)
+        low=0.0, high=1.0, size=N_weights_and_biases)
 
     # Gradient descent to get optimal parameters
     epoch = 0
